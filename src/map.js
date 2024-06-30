@@ -7,7 +7,7 @@ function hideLoadingOverlay() {
 }
 
 const loader = new Loader({
-  apiKey: "AIzaSyCMlg3335BMxPO51I7ZMpp-OXsTYCAaxYw",
+  apiKey: "secret",
   version: "weekly",
   libraries: ["places", "marker"]
 });
@@ -16,7 +16,7 @@ loader.load().then(async () => {
   const map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 51.04093204, lng: 0.149421913 },
     zoom: 10,
-    mapId: "8e6deb7a6acd250c" // My pink map style for Google Maps API
+    mapId: "secret" // My pink map style for Google Maps API
     
   });
 
