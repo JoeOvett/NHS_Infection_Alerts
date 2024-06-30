@@ -1,0 +1,505 @@
+@import"https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap";* {
+  margin: 0;
+  padding: 0
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+/* CSS for the loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fac7ffb3; /* Semi-transparent white background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Ensure it's on top of everything */
+}
+.loading-gif {
+  position: fixed;
+  top: calc(50% + 20px); /* Adjust the distance below the loading bar */
+  left: 50%;
+  width: 10px; /* Adjust the width of the loading GIF */
+  height: auto;
+  transform: translateX(-50%);
+  z-index: 999; /* Ensure it's on top of everything */
+}
+
+.loading-gif img {
+  width: 100px; /* Adjust the width of the loading GIF */
+  height: auto;
+}
+
+@keyframes glow {
+  0%, 100% {
+      box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+  }
+  50% {
+      box-shadow: 0 0 50px rgb(255, 233, 105);
+  }
+}
+
+#login-message {
+  display: none; /* Start hidden */
+  background: linear-gradient(to top right, rgba(255, 240, 245, 0.9), rgba(255, 182, 193, 0.9)); /* Diagonal gradient from bottom left to top right */
+  border: 3px solid rgba(147, 112, 219, 0.8); /* Soft purple border */
+  color: rgba(75, 0, 130, 0.9); /* Dark purple text color */
+  font-size: 20px; /* Large font size */
+  padding: 10px 20px; /* Padding around the text */
+  margin: 20px auto; /* Center the message horizontally */
+  width: 20%; /* Set a specific width */
+  text-align: center; /* Center the text inside the box */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow for depth */
+  border-radius: 5px; /* Optional: rounded corners */
+  animation: glow 2s ease-in-out infinite; /* Apply the glow animation */
+
+}
+
+
+.loading-overlay img {
+  width: 100px; /* Adjust the width of the loading GIF */
+  height: auto;
+}
+
+.title-container {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;  /* Adjust spacing to your preference */
+}
+
+.title-container h1 {
+  color: #fff;  /* White color for visibility against the dark gradient */
+  font-size: 2.5em;  /* Large font size for prominence */
+  font-weight: 600;  /* Semi-bold for better readability */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);  /* Text shadow for depth */
+  padding: 20px 0;  /* Padding to add some spacing around the text */
+}
+
+.login-icon {
+  width: 50%; /* Smaller icon size relative to the badge */
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+  background-image: url('login.png'); /* Default icon image */
+  background-size: cover;
+}
+
+
+
+.data-icon {
+  width: auto; /* Adjust based on your layout needs */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 150px; /* Set a maximum height to prevent oversized images */
+  object-fit: contain; /* Ensure the image fits within its container */
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for the hover effect */
+}
+
+
+.card:hover .data-icon {
+  content: url('data.gif'); /* Change to animated GIF on hover */
+}
+
+.gear-icon {
+  width: 100%; /* Adjust based on your layout needs */
+  height: auto;
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for the hover effect */
+}
+
+.card:hover .gear-icon {
+  content: url('gears.gif'); /* Change to animated GIF on hover */
+}
+.exit-icon {
+  width: 100%; /* Adjust based on your layout needs */
+  height: auto;
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for the hover effect */
+}
+
+.card:hover .exit-icon {
+  content: url('exit.gif'); /* Change to animated GIF on hover */
+}
+
+
+.landing-page {
+  display: flex;
+  flex-direction: column;  
+  justify-content: flex-start;
+  font-family: Roboto,Arial,sans-serif;
+  /*background: radial-gradient(circle at top right,#0f0c29,#302b63,#24243e);*/
+  background: url(micro.jpg)  no-repeat center center fixed;  
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow: auto;    
+}
+
+#map {
+  height: calc(100% - 40px); /* Adjust height to fill remaining space below the navbar */
+  width: 100%;
+  position: absolute;
+  top: 40px; /* Adjust top position to align with the bottom of the navbar */
+  left: 0;
+  z-index: 1;
+}
+
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none
+}
+
+.loading-bar {
+  height: 8px;
+  background: linear-gradient(to right,#ff0095,#ffe4f4);
+  transform: scaleX(0);
+  transform-origin: top left;
+  transition: transform .5s
+}
+
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  text-align: center
+}
+.loading-container img {
+  width: 50px; /* Adjust the width of the loading GIF */
+  height: auto;
+}
+
+.loading-text {
+  color: #ff0095;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  font-family: Arial,sans-serif;
+  z-index: 10
+}
+
+.loading-bar.ended {
+  transform: scaleX(0);
+  transform-origin: 100% 0;
+  transition: transform 1.5s ease-out, height 0s; /* Ease out the transform and keep the height stable */
+}
+
+.point {
+  position: absolute;
+  top: 50%;
+  left: 50%
+}
+
+.point .label {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: auto;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 50%;
+  background: #00000077;
+  border: 1px solid #ffffff77;
+  color: #fff;
+  font-family: Helvetica,Arial,sans-serif;
+  text-align: center;
+  line-height: 40px;
+  font-weight: 100;
+  font-size: 14px;
+  cursor: help;
+  transform: scale(0);
+  transition: transform .3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.point .text {
+  position: absolute;
+  top: 30px;
+  left: -120px;
+  width: 300px;
+  padding: 20px;
+  border-radius: 4px;
+  background: #00000077;
+  border: 1px solid #ffffff77;
+  color: #fff;
+  line-height: 1.3em;
+  font-family: Helvetica,Arial,sans-serif;
+  font-weight: 100;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.point:hover .text {
+  opacity: 1
+}
+
+.point.visible .label {
+  transform: scale(1)
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #333;
+  z-index: 1000;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+}
+
+nav ul li a:hover {
+  color: #f09;
+}
+
+
+/* Media query for smaller mobile screens */
+@media screen and (max-width: 768px) {
+  nav ul {
+    flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+    justify-content: flex-start; /* Start from the left */
+  }
+
+  nav ul li {
+    margin: 10px; /* Add some margin between items */
+    white-space: nowrap; /* Prevent items from wrapping onto multiple lines */
+  }
+
+  nav ul li a {
+    font-size: 14px; /* Reduce font size for smaller screens */
+  }
+}
+.login-card {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  color: #fff;
+  border-radius: 50%;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 70px;
+  left: calc(40% - 560px);
+  z-index: 1001;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-icon {
+  width: 50%; /* Smaller icon size relative to the badge */
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.login-label {
+  font-family: "Poppins", sans-serif; /* Consistent font with the login/signup forms */
+  font-size: 0.9em; /* Adjusted for readability */
+  margin-top: 5px; /* Space between icon and text */
+}
+
+.login-card:hover {
+  transform: scale(1.1); /* Scale up on hover for interactivity */
+  cursor: pointer;
+  border-color: rgba(255, 255, 255, 0.5); /* Brighter border on hover */
+  background-color: rgba(255, 255, 255, 0.3); /* Slightly more visible background on hover */
+}
+
+
+
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start; /* Adjusted alignment to start */
+  gap: 20px;
+  max-width: 1100px;
+  margin: 20px auto; /* Normal margin */
+  transition: margin-top 0.3s ease; /* Smooth transition for margin adjustments */
+}
+
+.card {
+  background: #0f0c29;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  width: 300px;
+  height: 370px;
+  color: #fff;
+  box-shadow: 0 4px 8px #0000001a;
+  transition: transform .2s, box-shadow .3s;
+  margin-bottom: 20px;
+}
+
+#restricted-content {
+  display: flex; /* Initially visible */
+  flex-wrap: wrap;
+  justify-content: center; /* This should match .card-container for alignment */
+  align-items: stretch; /* Ensures that cards align vertically */
+  gap: 20px;
+  max-width: 1300px; 
+  margin: auto; /* Center the container on the page */
+}
+
+#restricted-content:not(.active) .card {
+  opacity: 0.7; /* Make cards transparent when not active */
+  cursor: not-allowed; /* Show not-allowed cursor to indicate the card is not clickable */
+  pointer-events: none;
+  box-shadow: 0 4px 8px #0000001a;
+  transition: transform .2s, box-shadow .3s;
+}
+
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  flex-shrink: 0
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 10px
+}
+
+.card:hover {
+  background: #7e3562;
+  cursor: pointer;
+  text-shadow: 0 0 3px #bc13fe,0 0 3px #bc13fe;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px #0003
+}
+
+.card h3,.card p {
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-fill-color: transparent;
+  padding: 5px 10px
+}
+
+.card h3 {
+  margin-bottom: .5em;
+  font-size: 1.8em
+}
+
+.card p {
+  margin: 0;
+  font-size: 1em;
+  text-align: center
+}
+/* Landscape orientation */
+@media only screen and (max-device-width: 1024px) and (orientation: landscape) {
+  .login-card {
+    position: relative; /* Change position to relative */
+    top: unset; /* Reset top position */
+    margin-top: 0px; /* Add margin to create space below the title */
+    width: 220px; /* Fixed size for the badge */
+    height: 220px; /* Fixed size to maintain the circle shape */
+    left: 0%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for 3D effect */
+  }
+}
+
+/* Media queries refined for smooth centering */
+@media only screen and (max-width: 1100px) {
+  .login-card {
+    position: relative; 
+    top: 0px;
+    left: 0%;
+    transform: translateX(-0%);
+    margin-bottom: 0px; 
+  }
+
+  .card-container {
+    margin-top: 0px; /*value to ensure enough space for the login badge */
+  }
+}
+@media only screen and (max-width: 768px) {
+  .login-card {
+    position: relative; /* Change position to relative */
+    top: unset; /* Reset top position */
+    left: 0%; /* Ensure central alignment */
+    margin-top: 0px; /* Add margin to create space below the title */
+    width: 220px; /* Fixed size for the badge */
+    height: 220px; /* Fixed size to maintain the circle shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translateX(-0%); /* Maintain horizontal centering */
+
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for 3D effect */
+  }
+
+/* Additional media query to handle intermediate window sizes */
+@media only screen and (max-width: 900px) {
+  .login-card {
+    top: 0px;
+    left: 0%;
+    transform: translateX(-0%);
+  }
+}
+  .login-icon {
+    width: 50%; /* Smaller icon size relative to the badge */
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .login-label {
+    font-family: "Poppins", sans-serif; /* Consistent font with the login/signup forms */
+    font-size: 0.9em; /* Adjusted for readability */
+    margin-top: 5px; /* Space between icon and text */
+  }
+}
+
+
