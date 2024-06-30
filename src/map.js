@@ -35,7 +35,7 @@ loader.load().then(async () => {
     let locations = await response.json();
 
     // Limit the number of locations to 1000
-    locations = locations.slice(0, 400);
+    locations = locations.slice(0, 1000);
 
     // Log the number of locations received
     console.log(`Number of locations received: ${locations.length}`);
